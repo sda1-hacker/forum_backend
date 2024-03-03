@@ -1,0 +1,16 @@
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: sda1_hacker
+  database: forum
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  # auth: ctl@seu315
+  db: 0
+
+jwt:
+  expiresTime: 30
+  signKey: sda1_hacker
