@@ -12,5 +12,5 @@ redis:
   db: 0
 
 jwt:
-  expiresTime: 30
-  signKey: sda1_hacker
+  expiresTime: 30       # token过期时间, 设置的是分钟
+  signKey: sda1_hacker  # 加密签名

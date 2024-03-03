@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"github.com/forum_backend/logger"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/viper"
 	"time"
@@ -11,6 +12,7 @@ type JwtUtils struct {
 }
 
 // JwtCustomerClaims 自定义jwt结构体
+// 按需修改
 type JwtCustomerClaims struct {
 	ID   int
 	Name string
@@ -26,7 +28,7 @@ func (util JwtUtils) GenerateToken(id int, name string) (string, error) {
 		Name: name,
 		RegisteredClaims: jwt.RegisteredClaims{
 			IssuedAt:  jwt.NewNumericDate(time.Now()),                                // token颁发时间
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Second * expiresTime)), // 当前时间往后加一段时间
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * expiresTime)), // 当前时间往后加一段时间
 			Subject:   "JwtToken",
 		},
 	}
@@ -37,7 +39,7 @@ func (util JwtUtils) GenerateToken(id int, name string) (string, error) {
 }
 
 // ParseToken 解析jwt Token, 得到自定义Jwt结构体
-func ParseToken(tokenString string) (JwtCustomerClaims, error) {
+func (util JwtUtils) ParseToken(tokenString string) (JwtCustomerClaims, error) {
 	iJwtCustomerClaims := JwtCustomerClaims{}
 	// 得到自定义的jwt结构体
 	token, err := jwt.ParseWithClaims(tokenString, &iJwtCustomerClaims, func(token *jwt.Token) (interface{}, error) {
@@ -51,9 +53,10 @@ func ParseToken(tokenString string) (JwtCustomerClaims, error) {
 }
 
 // IsValidToken 判断token是否有效
-func IsValidToken(tokenString string) bool {
-	_, err := ParseToken(tokenString)
+func (util JwtUtils) IsValidToken(tokenString string) bool {
+	_, err := util.ParseToken(tokenString)
 	if err != nil {
+		logger.Error(map[string]interface{}{"jwtToken: ": err.Error()})
 		return false
 	}
 	return true

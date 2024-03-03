@@ -1,3 +1,0 @@
-2024-03-03 311:46:37 - ::1 "GET / HTTP/1.1 404 625ns "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" "
-2024-03-03 311:46:37 - ::1 "GET /favicon.ico HTTP/1.1 404 417ns "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" "
-2024-03-03 311:46:41 - ::1 "GET /user/add HTTP/1.1 200 763.083µs "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" "
