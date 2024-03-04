@@ -29,7 +29,6 @@ func InitMysqlConnection() {
 	password := viper.Get("mysql.password")
 	database := viper.Get("mysql.database")
 	sqlUrl = fmt.Sprintf(sqlUrl, userName, password, host, port, database)
-	println(sqlUrl)
 	// 获取数据库连接
 	db, err := gorm.Open(mysql.Open(sqlUrl), &gorm.Config{Logger: sqlLogger})
 	if err != nil {
