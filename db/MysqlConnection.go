@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var MysqlConnection *gorm.DB
+var MysqlClient *gorm.DB
 
 func InitMysqlConnection() {
 	// 打印SQL语句
@@ -36,5 +36,5 @@ func InitMysqlConnection() {
 		log.Printf("数据库连接错误, err: %v \n", err)
 		panic("数据库连接错误..")
 	}
-	MysqlConnection = db
+	MysqlClient = db
 }

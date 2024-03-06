@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var redisClient *redis.Client
+var RedisClient *redis.Client
 
 func InitRedisConnection() {
 	host := viper.GetString("redis.host")
@@ -13,7 +13,7 @@ func InitRedisConnection() {
 	// auth := viper.GetString("redis.auth")
 	db := viper.GetInt("redis.db")
 
-	redisClient = redis.NewClient(&redis.Options{
+	RedisClient = redis.NewClient(&redis.Options{
 		Addr: host + ":" + port,
 		// Password: auth,
 		DB: db,

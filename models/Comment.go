@@ -15,19 +15,3 @@ type Comment struct {
 func (c Comment) TableName() string {
 	return "comment"
 }
-
-type CommentVo struct {
-	ID              uint
-	Content         string
-	UserID          uint
-	ReplayUserID    uint
-	RootCommentID   uint
-	ParentCommentID uint
-
-	User       UserVo `gorm:"foreignKey:UserID"`
-	ReplayUser UserVo `gorm:"foreignKey:ReplayUserID"`
-}
-
-func (vo CommentVo) TableName() string {
-	return "comment"
-}
