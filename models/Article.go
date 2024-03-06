@@ -37,7 +37,6 @@ type ArticleDetailsVo struct {
 	UserID          uint
 	CategoryID      uint
 
-	// User     User     `gorm:"foreignKey:UserID"`
 	User     SimpleUserVo `gorm:"foreignKey:UserID"`
 	Category CategoryVo   `gorm:"foreignKey:CategoryID"`
 	// 参考这里吧,多对多,重写join表的外键和关联:  https://blog.csdn.net/kingsill/article/details/134796092

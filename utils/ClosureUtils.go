@@ -6,7 +6,13 @@ import "gorm.io/gorm"
 
 func Select(columns ...string) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		return db.Select(columns).Limit(10)
+		return db.Select(columns)
+	}
+}
+
+func OrderBy(order string) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.Order(order)
 	}
 }
 

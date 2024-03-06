@@ -49,7 +49,6 @@ type SimpleUserVo struct {
 	ID       uint
 	NickName string
 	Image    string
-	Gender   uint
 }
 
 func (vo SimpleUserVo) TableName() string {

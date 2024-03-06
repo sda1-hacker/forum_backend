@@ -15,7 +15,63 @@ func main() {
 	config.InitConfig()
 
 	db.InitMysqlConnection()
+	Agg()
+}
 
+func Agg() {
+
+	sql := "select " +
+		"tb1.id as id, tb1.content as content, tb2.counter as child_count " +
+		"from `comment` as tb1 " +
+		"left join (" +
+		"  	select " +
+		"		root_comment_id, count(*) counter " +
+		"	from `comment` " +
+		"	where root_comment_id != 0 and article_id = ? " +
+		"	group by root_comment_id" +
+		") as tb2 " +
+		"on tb1.id = tb2.root_comment_id " +
+		"where tb1.article_id = ? and tb1.root_comment_id = 0;"
+
+	var list []models.CommentListItemVo
+	err := db.MysqlClient.Model(&models.CommentListItemVo{}).
+		// Preload("User"). // 使用了Raw自定义查询, Preload不生效
+		Raw(sql, 2, 2).
+		Scan(&list).
+		Error
+	if err == nil {
+		for _, vo := range list {
+			fmt.Printf("%#v \n", vo)
+		}
+	} else {
+		println(err.Error())
+	}
+
+}
+
+func AddComment() {
+	comm := models.Comment{
+		ArticleID:     2,
+		Content:       "Java",
+		UserID:        1,
+		ReplayUserID:  4,
+		RootCommentID: 4,
+	}
+	db.MysqlClient.Create(&comm)
+}
+
+func CreateTable() {
+	db.MysqlClient.AutoMigrate(&models.Comment{})
+}
+
+func UserCenterDao() {
+	center, err := dao.UserDao{}.GetUserCenter(2)
+	if err == nil {
+		fmt.Printf("%#v \n", center)
+	}
+}
+
+func GetArticleList() {
 	articles, err := dao.ArticleDao{}.GetArticleListByTagID(1, 10, 0)
 	if err == nil {
 		for _, article := range articles {
@@ -45,10 +101,6 @@ func Delete(id uint) {
 	category := &models.Category{Model: gorm.Model{ID: id}}
 	err := db.MysqlClient.Model(&models.Category{}).Delete(&category).Error
 	fmt.Println(err)
-}
-
-func CreateTable() {
-	db.MysqlClient.AutoMigrate(&models.Category{})
 }
 
 // 多对多插入

@@ -79,11 +79,11 @@ func (dao UserDao) UpdatePassword(id uint, currentPassword string, newPassword s
 	return err
 }
 
-// 查找用户个人中心 -- utils.Select() 默认查找10条
+// 查找用户个人中心
 func (dao UserDao) GetUserCenter(id uint) (*models.UserCenterVo, error) {
 	var userCenter models.UserCenterVo
 	err := db.MysqlClient.Model(&models.UserCenterVo{}).
-		Preload("Articles", utils.LimitAndOffset(10, 0)).
+		Preload("Articles", utils.LimitAndOffset(10, 0), utils.OrderBy("top desc, created_at desc")).
 		Preload("Articles.Tags").
 		Where("id = ?", id).
 		Find(&userCenter).
