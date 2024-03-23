@@ -20,12 +20,12 @@ func (u User) TableName() string {
 
 // 用户详情信息
 type UserDetailsInfoVo struct {
-	ID       uint
-	NickName string
-	Email    string
-	Password string
-	Image    string
-	Gender   string
+	ID       uint   `json:"id"`
+	NickName string `json:"nickName"`
+	Email    string `json:"email"`
+	Password string `json:"-"`
+	Image    string `json:"image"`
+	Gender   string `json:"gender"`
 }
 
 func (vo UserDetailsInfoVo) TableName() string {
@@ -34,11 +34,11 @@ func (vo UserDetailsInfoVo) TableName() string {
 
 // 个人主页
 type UserCenterVo struct {
-	ID       uint
-	NickName string
-	Image    string
-	Gender   uint
-	Articles []ArticleListItemVo `gorm:"foreignKey:UserID"`
+	ID       uint                `json:"id"`
+	NickName string              `json:"nickName"`
+	Image    string              `json:"image"`
+	Gender   uint                `json:"gender"`
+	Articles []ArticleListItemVo `gorm:"foreignKey:UserID" json:"articles"`
 }
 
 func (vo UserCenterVo) TableName() string {

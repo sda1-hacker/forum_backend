@@ -14,13 +14,13 @@ type JwtUtils struct {
 // JwtCustomerClaims 自定义jwt结构体
 // 按需修改
 type JwtCustomerClaims struct {
-	ID   int
+	ID   uint
 	Name string
 	jwt.RegisteredClaims
 }
 
 // GenerateToken 生成 jwt token string
-func (util JwtUtils) GenerateToken(id int, name string) (string, error) {
+func (util JwtUtils) GenerateToken(id uint, name string) (string, error) {
 	expiresTime := viper.GetDuration("jwt.expiresTime") // 过期时间
 	// token配置信息
 	iJwtCustomerClaims := JwtCustomerClaims{

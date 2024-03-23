@@ -40,8 +40,8 @@ package main
 //		Scan(&list).
 //		Error
 //	if err == nil {
-//		for _, vo := range list {
-//			fmt.Printf("%#v \n", vo)
+//		for _, dto := range list {
+//			fmt.Printf("%#v \n", dto)
 //		}
 //	} else {
 //		println(err.Error())
